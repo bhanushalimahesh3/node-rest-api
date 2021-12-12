@@ -1,25 +1,13 @@
-// const { Sequelize } = require('sequelize');
-
-// const sequelize = new Sequelize('postgres://yolo_teamnest_user:123456@localhost:5432/notifications1')
-
-// try{
-//     sequelize.authenticate().then(function(data){
-//         console.log(data)
-//     }).reject(function(err){
-//         console.log('rejected')
-//     })
-// } catch(err){
-//     console.log("mahesh")
-// }
-
-// module.exports = sequelize;
-
+const { getDBHost,
+        getDBName,
+        getDBUserName,
+        getDBPassword } = include('helpers/env_helper');
 
 module.exports = {
-    HOST: "localhost",
-    USER: "yolo_teamnest_user",
-    PASSWORD: "123456",
-    DB: "notifications",
+    HOST: getDBHost(),
+    USER: getDBUserName(),
+    PASSWORD: getDBPassword(),
+    DB: getDBName(),
     dialect: "postgres",
     pool: {
       max: 5,

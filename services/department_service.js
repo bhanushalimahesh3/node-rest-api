@@ -1,7 +1,7 @@
-const { DepartmentModel } = include('models/user_model')
+const { DepartmentModel } = include('models/index')
 
-const addDepartment = async ({name}) => {
-    const newDepartment = await DepartmentModel.create({name})
+const addDepartment = async ({name, code}) => {
+    const newDepartment = await DepartmentModel.create({name, code})
     return newDepartment
 }
 

@@ -6,36 +6,48 @@ global.include = function(file) {
   return require(abs_path('/' + file));
 }
 
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var fs = require('fs');
+// import npm modules
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var registerRouter = require('./routes/register');
-var authRouter = require('./routes/auth');
-var departmentRouter = require('./routes/department');
-var genderRouter = require('./routes/gender');
+// import custom modules
+const { authenticateToken } = include('helpers/jwt_helper');
+const { getDBSync } = include("helpers/env_helper");
+const { hashedPassword, comparePassword } = include("helpers/hash_helper");
 
+//database
+const db = include('models/index');
 
-var app = express();
+ // routing
+const usersRouter = include('routes/users');
+const registerRouter = include('routes/register');
+const authRouter = include('routes/auth');
+const departmentRouter = include('routes/department');
+const genderRouter = include('routes/gender');
+const roleRouter = include('routes/role');
 
-// database
-var db = include('config/database.js');
+// express instance
+const app = express();
 
+// sync database
+if (getDBSync() == "true") {
+  db.sequelize.sync({ force: true }).then(() => {
+    console.log("********* Drop and re-sync db ***********");
+  }); 
+}
 
-//console.log(db)
+hashedPassword("123456")
+comparePassword("12345")
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-
-//console.log(dotenv.config().parsed.TOKEN_SECRET);
 
 var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
 
@@ -45,7 +57,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const { authenticateToken } = include('helpers/jwt_helper');
+
+
+
 
 // app.use(function(req, res, next) {
 //   console.log('logger')
@@ -56,7 +70,7 @@ app.use('/auth', authRouter);
 app.use('/register', registerRouter);
 app.use('/genders', genderRouter);
 app.use('/departments', departmentRouter);
-
+app.use('/roles', roleRouter);
 app.use('/users', authenticateToken,  usersRouter);
 
 

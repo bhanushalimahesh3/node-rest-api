@@ -4,6 +4,31 @@ function getTokenSecrect() {
   return dotenv.TOKEN_SECRET;
 }
 
+function getDBHost() {
+  return dotenv.DB_HOST;
+}
+
+function getDBName() {
+  return dotenv.DB_NAME;
+}
+
+function getDBUserName() {
+  return dotenv.DB_USER_NAME;
+}
+
+function getDBPassword() {
+  return dotenv.DB_USER_PASSWORD;
+}
+
+function getDBSync() {
+  return dotenv.DB_SYNC;
+}
+
 module.exports = {
-    getTokenSecrect
+    getTokenSecrect,
+    getDBHost,
+    getDBName,
+    getDBUserName,
+    getDBPassword,
+    getDBSync
 };
