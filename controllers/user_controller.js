@@ -6,7 +6,7 @@ const { getUserList, getUserById, addUserToDepartment } = include('services/user
 const userListing = async function(req, res, next) {
     const userList = await getUserList()
     console.log(userList, "user lisitng*****")
-    res.json(success({"users":{}}, "User listing"));
+    res.json(success({"users": userList}, "User listing"));
 }
 
 const userProfile = async function(req, res, next) {

@@ -20,6 +20,7 @@ const dotenv = require('dotenv');
 const { authenticateToken } = include('helpers/jwt_helper');
 const { getDBSync } = include("helpers/env_helper");
 const { hashedPassword, comparePassword } = include("helpers/hash_helper");
+const { isAdmin } = include("middleware/role_middleware");
 
 //database
 const db = include('models/index');
@@ -41,9 +42,6 @@ if (getDBSync() == "true") {
     console.log("********* Drop and re-sync db ***********");
   }); 
 }
-
-hashedPassword("123456")
-comparePassword("12345")
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -71,7 +69,7 @@ app.use('/register', registerRouter);
 app.use('/genders', genderRouter);
 app.use('/departments', departmentRouter);
 app.use('/roles', roleRouter);
-app.use('/users', authenticateToken,  usersRouter);
+app.use('/users', authenticateToken, isAdmin,  usersRouter);
 
 
 

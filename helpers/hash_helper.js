@@ -7,7 +7,7 @@ const hashedPassword = async (plainPassword) => {
     return hashed;
 }
 
-const comparePassword = async (plainPassword, hashedPassword='$2b$10$OFtxJngJBu2pv1Kwn55VRezusmcQdKktkp7riMxpgj6IeudfNMdn2') => {
+const comparePassword = async (plainPassword, hashedPassword) => {
     const verified = await bcrypt.compare(plainPassword, hashedPassword);
     console.log(verified, "verified password");
     return verified;

@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken');
 
 const { getTokenSecrect } = require('./env_helper')
 
-function generateAccessToken(username) {
-    return jwt.sign({username}, getTokenSecrect(), { expiresIn: '1h' });
+function generateAccessToken(email, userId, roleId, roleCode) {
+    return jwt.sign({email, userId, roleId, roleCode}, getTokenSecrect(), { expiresIn: '1h' });
 }
 
 function authenticateToken(req, res, next) {
@@ -13,12 +13,10 @@ function authenticateToken(req, res, next) {
   if (token == null) return res.sendStatus(401)
 
   jwt.verify(token, getTokenSecrect(), (err, user) => {
-    console.log(err, "mahesh here")
 
     if (err) return res.sendStatus(403)
 
     req.user = user
-
     next()
   })
 }
