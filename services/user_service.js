@@ -1,7 +1,7 @@
-const { UserModel, DepartmentUserMappingModel, DepartmentModel, GenderModel } = include('models/user_model')
+const { UserModel } = include('models/index')
 
-const addUser = async ({name, email, password, gender_id}) => {
-    const newUser = await UserModel.create({name, email, password, gender_id})
+const addUser = async ({name, email, password, gender_id, role_id}) => {
+    const newUser = await UserModel.create({name, email, password, gender_id, role_id})
     return newUser
 }
 

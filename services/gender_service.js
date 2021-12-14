@@ -5,6 +5,12 @@ const addGender = async ({name, code}) => {
     return newGender
 }
 
+const getGenderList = async () => {
+    const genders = await GenderModel.findAll({attributes: ['id', 'name', 'code']})
+    return genders
+}
+
 module.exports = {
-    addGender
+    addGender,
+    getGenderList
 }

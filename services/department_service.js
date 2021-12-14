@@ -5,6 +5,12 @@ const addDepartment = async ({name, code}) => {
     return newDepartment
 }
 
+const getDepartmentList = async () => {
+    const departmentList = await DepartmentModel.findAll({attributes: ['id', 'name', 'code']})
+    return departmentList
+}
+
 module.exports = {
-    addDepartment
+    addDepartment,
+    getDepartmentList
 }

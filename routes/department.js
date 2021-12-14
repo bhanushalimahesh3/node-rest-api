@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-const { departmentRegister } = include('controllers/department_controller');
+const { departmentRegister, departmentList } = include('controllers/department_controller');
 
-/* POST registration */
 router.post('/', departmentRegister);
+router.get('/', departmentList);
 
 module.exports = router;

@@ -1,3 +1,5 @@
+const { hashedPassword, comparePassword } = include("helpers/hash_helper");
+
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define('UserModel', {
     // Model attributes are defined here
@@ -11,7 +13,16 @@ module.exports = (sequelize, DataTypes) => {
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      set(value) {
+        // Storing passwords in plaintext in the database is terrible.
+        // Hashing the value with an appropriate cryptographic hash function is better.
+        (async () => {
+          this.setDataValue('password', await hashedPassword(value));
+          console.log('inside password setter')
+        })()
+        // this.setDataValue('password', hashedPassword(value));
+      }
     },
     profile_pic: {
       type: DataTypes.STRING,

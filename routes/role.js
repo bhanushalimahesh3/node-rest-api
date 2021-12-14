@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-const { roleRegister } = include('controllers/role_controller');
+const { roleRegister, roleList } = include('controllers/role_controller');
 
-/* POST registration */
 router.post('/', roleRegister);
+router.get('/', roleList);
 
 module.exports = router;

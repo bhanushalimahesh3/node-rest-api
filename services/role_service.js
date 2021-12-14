@@ -5,6 +5,12 @@ const addRole = async ({name, code}) => {
     return newRole
 }
 
+const getRoleList = async () => {
+    const roles = await RoleModel.findAll({attributes: ['id', 'name', 'code']})
+    return roles
+}
+
 module.exports = {
-    addRole
+    addRole,
+    getRoleList
 }
