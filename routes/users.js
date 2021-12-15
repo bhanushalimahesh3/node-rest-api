@@ -4,6 +4,7 @@ const { userListing, userProfile, userAddDepartment } = include('controllers/use
 
 /* GET users listing. */
 router.get('/', userListing);
+router.put('/avatar', userAddDepartment);
 router.post('/department', userAddDepartment);
 router.get('/:userId', userProfile);
 

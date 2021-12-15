@@ -70,6 +70,7 @@ app.use('/genders', genderRouter);
 app.use('/departments', departmentRouter);
 app.use('/roles', roleRouter);
 app.use('/users', authenticateToken, isAdmin,  usersRouter);
+app.use('/my-profile', authenticateToken, usersRouter)
 
 
 

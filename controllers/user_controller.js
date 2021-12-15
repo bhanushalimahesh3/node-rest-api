@@ -1,3 +1,5 @@
+const multer = require('multer')
+const upload = multer({ dest: 'uploads/' })
 const { success, error } = include('helpers/response_helper');
 const { getUserInfoFromRequest } = include('helpers/jwt_helper');
 const { getUserList, getUserById, addUserToDepartment } = include('services/user_service')
@@ -19,8 +21,14 @@ const userAddDepartment = async function(req, res, next) {
     res.json(success({"users":{}}, "Department mapped"));
 }
 
+const updateUserAvatar = async function(req, res, next) {
+    // const departmentMapped = await addUserToDepartment({...req.body})
+    // res.json(success({"users":{}}, "Department mapped"));
+}
+
 module.exports = {
     userListing,
     userProfile,
-    userAddDepartment
+    userAddDepartment,
+    updateUserAvatar
 };
