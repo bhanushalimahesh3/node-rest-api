@@ -3,7 +3,7 @@ const upload = multer({ dest: 'uploads/' })
 const { success, error } = include('helpers/response_helper');
 const { getUserInfoFromRequest } = include('helpers/jwt_helper');
 const { getUserList, getUserById, addUserToDepartment } = include('services/user_service')
-
+const uploadFile = include('middleware/file_upload_middleware')
 
 const userListing = async function(req, res, next) {
     const userList = await getUserList()
@@ -22,8 +22,24 @@ const userAddDepartment = async function(req, res, next) {
 }
 
 const updateUserAvatar = async function(req, res, next) {
+    
+    console.log(req.file, "yeah")
+    res.json(success({"users":{}}, "User avatar updated"));
     // const departmentMapped = await addUserToDepartment({...req.body})
     // res.json(success({"users":{}}, "Department mapped"));
+    // try {
+    //     const fileUploaded = await uploadFile(req, res);
+    //     console.log(fileUploaded, "file uploaded")
+
+    //     if (req.file == undefined) {
+    //         res.json(error("File not uploaded"));
+    //     }
+    //     res.json(success({"users":{}}, "File uploaded"));
+    // } catch (error) {
+    //     res.json(error(`Could not upload the file: ${req.file.originalname}. ${err}`))
+        
+        
+    // }
 }
 
 module.exports = {
