@@ -8,12 +8,12 @@ const addUser = async ({name, email, password, gender_id, role_id}) => {
 }
 
 const getUserList = async () => {
-    const userList = await UserModel.findAll({attributes: ['id', 'name', 'email'], include: ['gender', 'role']})
+    const userList = await UserModel.findAll({attributes: ['id', 'name', 'email', 'profile_pic_url', 'profile_pic'], include: ['gender', 'role']})
     return userList
 }
 
 const getUserById = async (userId) => {
-    const userProfile = await UserModel.findOne({where:{id:userId}, attributes: ['id', 'name', 'email'], include: ['gender', 'role']})
+    const userProfile = await UserModel.findOne({where:{id:userId}, attributes: ['id', 'name', 'email', 'profile_pic_url', 'profile_pic'], include: ['gender', 'role']})
     return userProfile
 }
 
@@ -23,7 +23,7 @@ const addUserToDepartment = async ({user_id, department_id}) => {
 }
 
 const getUserByEmail = async (userEmail) => {
-    const userProfile = await UserModel.findOne({where:{email:userEmail}, attributes: ['id', 'name', 'email', 'password'], include: ['gender', 'role']})
+    const userProfile = await UserModel.findOne({where:{email:userEmail}, attributes: ['id', 'name', 'email', 'password', 'profile_pic_url', 'profile_pic'], include: ['gender', 'role']})
     return userProfile
 }
 
@@ -32,11 +32,23 @@ const verifyPassword = async (plainPassword, hashedPassword) => {
     return isVerified
 }
 
+const updateUserAvatarById = async (userId, filename) => {
+
+    const isUpdated = await UserModel.update({ profile_pic: filename }, {
+                        where: {
+                        id: userId
+                        }
+                    });
+    return isUpdated
+
+}
+
 module.exports = {
     addUser,
     getUserList,
     getUserById,
     addUserToDepartment,
     getUserByEmail,
-    verifyPassword
+    verifyPassword,
+    updateUserAvatarById
 }

@@ -16,8 +16,8 @@ const userAuthenticate = async function(req, res, next) {
         }}, 
         "Users authenticated"
         ));
-
-    res.json(error('Invalid email or password'));
+    else    
+        res.json(error('Invalid email or password'));
 }
 
 module.exports.userAuthenticate = userAuthenticate;

@@ -24,11 +24,16 @@ function getDBSync() {
   return dotenv.DB_SYNC;
 }
 
+function getBaseURL() {
+  return dotenv.BASE_URL;
+}
+
 module.exports = {
     getTokenSecrect,
     getDBHost,
     getDBName,
     getDBUserName,
     getDBPassword,
-    getDBSync
+    getDBSync,
+    getBaseURL
 };
