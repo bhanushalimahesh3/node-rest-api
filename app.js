@@ -38,7 +38,7 @@ const app = express();
 
 // sync database
 if (getDBSync() == "true") {
-  db.sequelize.sync({ force: true }).then(() => {
+  db.DepartmentUserMappingModel.sync({ force: true }).then(() => {
     console.log("********* Drop and re-sync db ***********");
   }); 
 }

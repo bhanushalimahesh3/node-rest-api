@@ -9,7 +9,7 @@ const uploadFileMiddleware = include('middleware/file_upload_middleware')
 /* GET users listing. */
 router.get('/', userListing);
 router.put('/avatar', uploadFileMiddleware, updateUserAvatar);
-router.post('/department', userAddDepartment);
+router.put('/department', userAddDepartment);
 router.get('/:userId', userProfile);
 
 module.exports = router;

@@ -1,4 +1,4 @@
-const { UserModel } = include('models/index')
+const { UserModel, DepartmentUserMappingModel } = include('models/index')
 const { hashedPassword, comparePassword } = include("helpers/hash_helper");
 
 const addUser = async ({name, email, password, gender_id, role_id}) => {
@@ -17,8 +17,8 @@ const getUserById = async (userId) => {
     return userProfile
 }
 
-const addUserToDepartment = async ({user_id, department_id}) => {
-    const mappedDepartment = await DepartmentUserMappingModel.create({user_id, department_id})
+const addUserToDepartment = async ({user_id, department_id, manager_id}) => {
+    const mappedDepartment = await DepartmentUserMappingModel.create({user_id, department_id, manager_id})
     return mappedDepartment
 }
 

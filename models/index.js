@@ -20,6 +20,7 @@ const DepartmentModel = include("models/department_model")(sequelize, DataTypes)
 const GenderModel = include("models/gender_model")(sequelize, DataTypes);
 const RoleModel = include("models/role_model")(sequelize, DataTypes);
 const UserModel = include("models/user_model")(sequelize, DataTypes);
+const DepartmentUserMappingModel = include("models/department_user_model")(sequelize, DataTypes, UserModel);
 
 // define associations
 UserModel.belongsTo(GenderModel, {
@@ -30,7 +31,12 @@ UserModel.belongsTo(GenderModel, {
 UserModel.belongsTo(RoleModel, {
     foreignKey: 'role_id',
     as: 'role'
-    })    
+    })  
+
+UserModel.belongsToMany(DepartmentModel, { through: DepartmentUserMappingModel, foreignKey: 'user_id',
+as: 'departments' });
+DepartmentModel.belongsToMany(UserModel, { through: DepartmentUserMappingModel, foreignKey: 'department_id',
+as: 'users' });
 
 module.exports = {
     DepartmentModel,
@@ -38,5 +44,6 @@ module.exports = {
     RoleModel,
     UserModel,
     sequelize,
-    Sequelize
+    Sequelize,
+    DepartmentUserMappingModel
 };
