@@ -4,6 +4,7 @@ const { success, error } = include('helpers/response_helper');
 const { getUserInfoFromRequest } = include('helpers/jwt_helper');
 const { getUserList, getUserById, addUserToDepartment, updateUserAvatarById } = include('services/user_service')
 const uploadFile = include('middleware/file_upload_middleware')
+const { getDepartmentById } = include('services/department_service')
 
 const userListing = async function(req, res, next) {
     const userList = await getUserList()
@@ -17,7 +18,10 @@ const userProfile = async function(req, res, next) {
 }
 
 const userAddDepartment = async function(req, res, next) {
-    const departmentMapped = await addUserToDepartment({...req.body})
+    const user = await getUserById(req.body.user_id)
+    const department = await getDepartmentById(req.body.department_id)
+    console.log(user, department)
+    //const departmentMapped = await addUserToDepartment({...req.body})
     res.json(success({"users":{}}, "Department mapped"));
 }
 

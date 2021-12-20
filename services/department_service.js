@@ -10,7 +10,13 @@ const getDepartmentList = async () => {
     return departmentList
 }
 
+const getDepartmentById = async (id) => {
+    const department = await DepartmentModel.findOne({where:{id:id}, attributes: ['id', 'name', 'code']})
+    return department
+}
+
 module.exports = {
     addDepartment,
-    getDepartmentList
+    getDepartmentList,
+    getDepartmentById
 }
