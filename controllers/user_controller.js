@@ -1,4 +1,5 @@
-const multer = require('multer')
+const multer = require('multer');
+const { UserModel, DepartmentModel } = include('models/index')
 const upload = multer({ dest: 'uploads/' })
 const { success, error } = include('helpers/response_helper');
 const { getUserInfoFromRequest } = include('helpers/jwt_helper');
@@ -20,9 +21,10 @@ const userProfile = async function(req, res, next) {
 const userAddDepartment = async function(req, res, next) {
     const user = await getUserById(req.body.user_id)
     const department = await getDepartmentById(req.body.department_id)
-    console.log(user, department)
-    //const departmentMapped = await addUserToDepartment({...req.body})
-    res.json(success({"users":{}}, "Department mapped"));
+
+    const deptAdded = await user.addDepartments(department, {through: {manager_id:req.body.manager_id}})
+    
+    res.json(success({"users":{}}, "Department updated"));
 }
 
 const updateUserAvatar = async function(req, res, next) {

@@ -13,7 +13,7 @@ const getUserList = async () => {
 }
 
 const getUserById = async (userId) => {
-    const userProfile = await UserModel.findOne({where:{id:userId}, attributes: ['id', 'name', 'email', 'profile_pic_url', 'profile_pic'], include: ['gender', 'role']})
+    const userProfile = await UserModel.findOne({where:{id:userId}, attributes: ['id', 'name', 'email', 'profile_pic_url', 'profile_pic'], include: ['gender', 'role', 'departments']})
     return userProfile
 }
 
