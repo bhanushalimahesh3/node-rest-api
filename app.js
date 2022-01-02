@@ -65,7 +65,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //   req.api_token = "123"
 //   next();
 // })
-app.use('/download', downloadRouter);
+app.use('/csv', downloadRouter);
 app.use('/auth', authRouter);
 app.use('/register', registerRouter);
 app.use('/genders', genderRouter);

@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
-const { downloadUserList } = include('controllers/download_controller');
+const { downloadUserList, uploadUserList } = include('controllers/download_controller');
 
-router.get('/', downloadUserList);
+router.get('/download', downloadUserList);
+router.get('/upload', uploadUserList);
 
 module.exports = router;

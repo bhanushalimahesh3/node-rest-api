@@ -1,6 +1,8 @@
 // import { Parser } from 'json2csv';
 var {Parser} = require('json2csv');
-console.log(Parser)
+const csv=require('csvtojson')
+const userFile = abs_path('/users_list.csv');
+
 const downloadUserList = function(req, res, next) {
     const json2csv = new Parser({fields: ["Name", "Email Test"] });
     const csv = json2csv.parse([{Name:"mahesh", "Email Test":"mahesh@gmail.com"}]);
@@ -9,4 +11,15 @@ const downloadUserList = function(req, res, next) {
     res.send(csv);
 }
 
-module.exports.downloadUserList = downloadUserList;
+const uploadUserList = async function(req, res, next) {
+
+    const converter= await csv()
+    .fromFile(userFile)
+
+    console.log(converter)
+    res.json('upload');
+
+}
+
+module.exports = {downloadUserList,
+                  uploadUserList}
