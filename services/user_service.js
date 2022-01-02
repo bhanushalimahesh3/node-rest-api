@@ -1,4 +1,4 @@
-const { UserModel, DepartmentUserMappingModel } = include('models/index')
+const { UserModel, DepartmentUserMappingModel, GenderModel, RoleModel, DepartmentModel } = include('models/index')
 const { hashedPassword, comparePassword } = include("helpers/hash_helper");
 
 const addUser = async ({name, email, password, gender_id, role_id}) => {
@@ -13,7 +13,12 @@ const getUserList = async () => {
 }
 
 const getUserById = async (userId) => {
-    const userProfile = await UserModel.findOne({where:{id:userId}, attributes: ['id', 'name', 'email', 'profile_pic_url', 'profile_pic'], include: ['gender', 'role', 'departments']})
+    // const userProfile = await UserModel.findOne({where:{id:userId}, attributes: ['id', 'name', 'email', 'profile_pic_url', 'profile_pic'], include: ['gender', 'role', 'departments']})
+    const userProfile = await UserModel.findOne({where: {id:userId}, attributes:['id', 'name', 'email', 'profile_pic_url', 'profile_pic'], include: ['gender', 'role', {
+        model: DepartmentModel,
+        as: 'departments',
+        include: ['manager']
+    }]})
     return userProfile
 }
 

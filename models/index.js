@@ -37,10 +37,14 @@ UserModel.belongsToMany(DepartmentModel, { through: DepartmentUserMappingModel, 
 as: 'departments' });
 DepartmentModel.belongsToMany(UserModel, { through: DepartmentUserMappingModel, foreignKey: 'department_id',
 as: 'users' });
-UserModel.belongsTo(DepartmentUserMappingModel, {
+// UserModel.hasOne(DepartmentUserMappingModel, {
+//   foreignKey: 'manager_id',
+//   as: 'manager'
+//   })
+DepartmentUserMappingModel.belongsTo(UserModel, {
   foreignKey: 'manager_id',
   as: 'manager'
-  })
+})  
 
 module.exports = {
     DepartmentModel,

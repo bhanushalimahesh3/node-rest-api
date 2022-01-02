@@ -32,6 +32,7 @@ const authRouter = include('routes/auth');
 const departmentRouter = include('routes/department');
 const genderRouter = include('routes/gender');
 const roleRouter = include('routes/role');
+const downloadRouter = include('routes/download')
 
 // express instance
 const app = express();
@@ -64,6 +65,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //   req.api_token = "123"
 //   next();
 // })
+app.use('/download', downloadRouter);
 app.use('/auth', authRouter);
 app.use('/register', registerRouter);
 app.use('/genders', genderRouter);
